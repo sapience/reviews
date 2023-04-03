@@ -2,10 +2,18 @@ FROM ruby:3.1.2-bullseye
 
 WORKDIR /app
 RUN gem install bundler:2.4.10
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY Gemfile .
+COPY Gemfile.lock .
 RUN bundle install
-RUN ["rails", "db:create", "db:migrate", "db:seed"]
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update -qq && apt install -y yarn
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install
+RUN rails assets:precompile
+RUN RAILS_ENV=development rails db:seed
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
