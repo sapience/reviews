@@ -12,8 +12,6 @@ RUN apt update -qq && apt install -y yarn
 COPY package.json .
 COPY yarn.lock .
 RUN yarn install
-RUN rails assets:precompile
-RUN RAILS_ENV=development rails db:seed
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
