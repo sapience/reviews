@@ -9,6 +9,8 @@ An alternative option is to change Ruby version in the project to the one that y
 ### Clone the project (for native and Docker setups)
 ```git clone https://github.com/sapience/reviews.git```
 
+```cd``` into the project's folder.
+
 ### Docker setup
 Run:
 
@@ -36,6 +38,8 @@ Run:
 ## How to run the application
 
 No additional configuration is required.
+
+The applicatioin will be accessible on http://0.0.0.0:3000
 
 ### Docker
 
