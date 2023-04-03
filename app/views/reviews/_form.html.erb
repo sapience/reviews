@@ -1,0 +1,49 @@
+<%= form_with(model: [product, review], local: false) do |form| %>
+  <% if review.errors.any? %>
+    <div style="color: red">
+      <%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:
+
+      <ul>
+        <% review.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="modal-body">
+    <div class="container">
+
+      <div class="mb-3">
+        <%= form.label 'Your name', style: "display: block" %>
+        <%= form.text_field :reviewer_name, size: "50" %>
+      </div>
+
+      <div>
+        <%= form.label 'Your rating', style: "display: block" %>
+        <%= form.number_field :rating, style: "display: none" %>
+      </div>
+      <div class="container-sm">
+        <div class="row justify-content-xs-center">
+          <% (1..5).each do |star_id| %>
+            <div class="col">
+              <button type="button" class="btn" onclick="set_stars(<%= star_id %>);">
+                <i id="star_id_<%= star_id %>" class="bi-star"></i>
+              </button>
+            </div>
+          <% end %>
+      </div>
+     </div>
+
+      <div>
+        <%= form.label 'Your review', style: "display: block" %>
+        <%= form.text_area :written_review, size: "50" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div>
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>

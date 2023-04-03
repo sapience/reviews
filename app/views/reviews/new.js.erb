@@ -1,0 +1,19 @@
+jQuery("#reviewModal").find(".modal-content").html("<%= j (render 'new') %>");
+set_stars(<%= @review.rating %>);
+jQuery("#reviewModal").modal('show');
+
+function set_stars(star_id) {
+  jQuery("#review_rating").val(star_id);
+  let stars_to_fill = 5 - star_id
+  while (star_id > 0) {
+    jQuery("#star_id_" + star_id).removeClass("bi-star")
+    jQuery("#star_id_" + star_id).addClass("bi-star-fill")
+    star_id--;
+  }
+
+  while (stars_to_fill > 0) {
+    jQuery("#star_id_" + (6 - stars_to_fill)).removeClass("bi-star-fill")
+    jQuery("#star_id_" + (6 - stars_to_fill)).addClass("bi-star")
+    stars_to_fill--;
+  }
+}
